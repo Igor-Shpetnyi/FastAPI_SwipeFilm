@@ -1,7 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
+import requests
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello from FastAPI on Railway!"}
+# Псевдо-endpoint проксі
+@app.get("/api/proxy/")
+async def proxy(url: str):
+    # Робимо запит до стороннього сервера
+    r = requests.get(url, headers={"ngrok-skip-browser-warning": "true"}, stream=True)
+    return Response(content=r.content, media_type=r.headers.get("content-type"))
