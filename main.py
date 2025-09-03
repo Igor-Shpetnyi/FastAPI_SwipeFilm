@@ -5,9 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    # "http://localhost:5173",
-    # "https://igor-shpetnyi.github.io",
-    "*",  # можна для тесту дозволити всім, але небезпечно в продакшені
+    "*",
 ]
 
 app.add_middleware(
